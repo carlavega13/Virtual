@@ -8,6 +8,10 @@ module.exports = (sequelize) => {
         type: DataTypes.DATE,
         allowNull: false,
       },
+      ticket_price: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+      },
       ticket_code: {
         type: DataTypes.STRING,
         allowNull: false,

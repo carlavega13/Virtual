@@ -24,6 +24,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      available_tickets:{
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+      },
       ticket_price: {
         type: DataTypes.DECIMAL,
         allowNull: false,

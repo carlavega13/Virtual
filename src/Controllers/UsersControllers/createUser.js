@@ -9,7 +9,8 @@ const createUser = async (user) => {
     if (existingUser) {
       throw new Error("User already exists");
     }
-    await User.create({ ...user, rol: "user",  password: await bcrypt.hash(user.password, 10) });
+    const  password= await bcrypt.hash(user.password, 10) 
+    await User.create({ ...user,password });
     return "User created successfully";
   } catch (error) {
     throw new Error(error.message);

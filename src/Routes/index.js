@@ -5,6 +5,8 @@ const postRequestPasswordReset = require("./UserRoutes/postRequestPasswordReset"
 const putEditUser = require("./UserRoutes/putEditUser");
 const putUserPassword = require("./UserRoutes/putUserPassword");
 const postEvent = require("./EventsRoutes/postEvent");
+const putEvent = require("./EventsRoutes/putEvent");
+
 //
 const router = Router();
 router.post("/postUser",postUser)
@@ -13,6 +15,7 @@ router.get("/requestPasswordRecovery/:email",postRequestPasswordReset)
 router.put("/editUser/:id",putEditUser)
 router.put("/changePassword",putUserPassword)
 router.post("/createEvent",postEvent)
+router.put("/editEvent",putEvent)
 router.get("/", (req, res) => {
   const html = `
   <!DOCTYPE html>

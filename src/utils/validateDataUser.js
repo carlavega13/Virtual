@@ -7,10 +7,13 @@ const validateDataUser = (data) => {
     if(profile_picture&&!urlRegex.test(profile_picture)){
         throw new Error("Image link is not valid");
     }
+    if(name&&typeof name !=="string"){
+        throw new Error("Name is not valid");
+    }
     if(!emailRegex.test(email)){
         throw new Error("Email is not valid");
     }
-    if(!passwordRegex.test(password)){
+    if(password&&!passwordRegex.test(password)){
         throw new Error("Password is not valid");
     }
     return true;

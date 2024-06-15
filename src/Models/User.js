@@ -26,15 +26,15 @@ module.exports = (sequelize) => {
       profile_picture: {
         type: DataTypes.STRING,
       },
-      created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+      reset_password_token: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
-      update_at: {
+      reset_password_expires: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        allowNull: true,
       },
     },
-    { timestamps: false }
+    { timestamps: true }
   );
 };

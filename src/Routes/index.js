@@ -1,10 +1,14 @@
 const { Router } = require("express");
 const postUser = require("./UserRoutes/postUser");
 const postLogin = require("./UserRoutes/postLogin");
+const postRequestPasswordReset = require("./UserRoutes/postRequestPasswordReset");
+const putEditUser = require("./UserRoutes/putEditUser");
 //
 const router = Router();
 router.post("/postUser",postUser)
 router.post("/login",postLogin)
+router.get("/requestPasswordRecovery/:email",postRequestPasswordReset)
+router.put("/editUser/:id",putEditUser)
 router.get("/", (req, res) => {
   const html = `
   <!DOCTYPE html>

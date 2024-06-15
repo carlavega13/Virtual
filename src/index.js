@@ -26,7 +26,6 @@ server.use("/", router);
 server.use((err, req, res, next) => {
   const status = err.status || 500;
   const message = err.message || err;
-  console.error("este es el mensaje de error", err.message);
   res.status(status).send(message);
 });
 

@@ -14,7 +14,7 @@ try {
 const html=htmlSendRecoveryCode(resetToken)
 await postMailController({subject:"Recover your password.",text:html,to:email})
 
-    return "sss"
+    return "The code has been send"
 } catch (error) {
     throw Error(error.message)
 }

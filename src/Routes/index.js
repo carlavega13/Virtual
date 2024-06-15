@@ -1,8 +1,10 @@
 const { Router } = require("express");
 const postUser = require("./UserRoutes/postUser");
+const postLogin = require("./UserRoutes/postLogin");
 //
 const router = Router();
 router.post("/postUser",postUser)
+router.post("/login",postLogin)
 router.get("/", (req, res) => {
   const html = `
   <!DOCTYPE html>

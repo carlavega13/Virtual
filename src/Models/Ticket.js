@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
       purchase_date: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue:Date.now()
       },
       ticket_price: {
         type: DataTypes.DECIMAL,

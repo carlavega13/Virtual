@@ -6,6 +6,8 @@ const putEditUser = require("./UserRoutes/putEditUser");
 const putUserPassword = require("./UserRoutes/putUserPassword");
 const postEvent = require("./EventsRoutes/postEvent");
 const putEvent = require("./EventsRoutes/putEvent");
+const deleteEvent = require("./EventsRoutes/deleteEvent");
+const getEvents = require("./EventsRoutes/getEvents");
 
 //
 const router = Router();
@@ -16,6 +18,8 @@ router.put("/editUser/:id",putEditUser)
 router.put("/changePassword",putUserPassword)
 router.post("/createEvent",postEvent)
 router.put("/editEvent",putEvent)
+router.delete("/deleteEvent",deleteEvent)
+router.get("/getEvents/:eventId",getEvents)
 router.get("/", (req, res) => {
   const html = `
   <!DOCTYPE html>

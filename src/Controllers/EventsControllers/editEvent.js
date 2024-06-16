@@ -1,4 +1,4 @@
-const { Event } = require("../../db");
+const { Event, User } = require("../../db");
 const editEvent = async (info) => {
   try {
     const {
@@ -12,6 +12,12 @@ const editEvent = async (info) => {
       ticket_price,
       available_tickets,
     } = info;
+    const organizer = await User.findOne({
+      where: { id: organizerId, rol: "admin" },
+    });
+    if (!organizer) {
+      throw Error("You dont have permission to edit an event");
+    }
     const event = await Event.findOne({
       where: { id: eventId, organizer_id: organizerId },
     });

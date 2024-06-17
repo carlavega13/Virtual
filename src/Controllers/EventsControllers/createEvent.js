@@ -2,7 +2,6 @@ const { Event, User } = require("../../db");
 
 const createEvent = async (info) => {
   try {
-    console.log(info);
     const {
       organizerId,
       title,
@@ -39,7 +38,7 @@ const createEvent = async (info) => {
       location,
       ticket_price,
       available_tickets,
-      organizer_id:organizerId,
+      organizer_id: organizerId,
     });
 
     return newEvent;
@@ -48,4 +47,4 @@ const createEvent = async (info) => {
   }
 };
 
-module.exports = createEvent
+module.exports = createEvent;

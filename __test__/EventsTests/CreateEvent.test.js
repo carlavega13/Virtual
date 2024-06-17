@@ -1,7 +1,7 @@
 const { Event, User } = require('../../src/db');
 const createEvent = require("../../src/Controllers/EventsControllers/createEvent"); // Asegúrate de ajustar la ruta al archivo correcto
 
-jest.mock('../../db', () => ({
+jest.mock('../../src/db', () => ({
   Event: {
     create: jest.fn(),
   },

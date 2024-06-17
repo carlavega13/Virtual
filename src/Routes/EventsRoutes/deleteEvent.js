@@ -9,7 +9,7 @@ const deleteEvent = async (req, res) => {
     res.status(200).json({ message: "Event was successfully deleted" });
   } catch (error) {
     res
-      .status(200)
+      .status(400)
       .json({ message: "An error has occurred", error: error.message });
   }
 };

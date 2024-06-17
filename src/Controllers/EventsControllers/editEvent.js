@@ -21,6 +21,9 @@ const editEvent = async (info) => {
     const event = await Event.findOne({
       where: { id: eventId, organizer_id: organizerId },
     });
+    if (!event) {
+      throw Error("Event not found");
+    }
     await event.update({
       title,
       description,

@@ -1,7 +1,7 @@
 const { Op, where, fn, col, literal } = require("sequelize");
 const { Event } = require("../../db");
 
-const searchEvents = async ({text}) => {
+const searchEvents = async ({ text }) => {
   try {
     const search = `%${text.toLowerCase()}%`;
     const whereClause = {
@@ -10,7 +10,9 @@ const searchEvents = async ({text}) => {
         where(fn("LOWER", col("description")), { [Op.like]: search }),
         where(literal(`TO_CHAR(date, 'YYYY-MM-DD')`), { [Op.like]: search }),
         where(fn("LOWER", col("location")), { [Op.like]: search }),
-        where(literal(`LOWER(CAST("ticket_price" AS TEXT))`), { [Op.like]: search }),
+        where(literal(`LOWER(CAST("ticket_price" AS TEXT))`), {
+          [Op.like]: search,
+        }),
       ],
     };
     const events = await Event.findAll({ where: whereClause });

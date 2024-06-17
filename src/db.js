@@ -42,18 +42,6 @@ Ticket.belongsTo(User, { foreignKey: "user_id" });
 Event.hasMany(Ticket, { foreignKey: "event_id" });
 Ticket.belongsTo(Event, { foreignKey: "event_id" });
 
-User.hasMany(Notification, { foreignKey: "user_id" });
-Notification.belongsTo(User, { foreignKey: "user_id" });
-
-Event.hasMany(Notification, { foreignKey: "event_id" });
-Notification.belongsTo(Event, { foreignKey: "event_id" });
-
-User.belongsToMany(Event, { through: EventParticipant, foreignKey: "user_id" });
-Event.belongsToMany(User, {
-  through: EventParticipant,
-  foreignKey: "event_id",
-});
-
 module.exports = {
   ...sequelize.models,
   conn: sequelize,

@@ -10,7 +10,7 @@ const deleteEvent = require("./EventsRoutes/deleteEvent");
 const getEvents = require("./EventsRoutes/getEvents");
 const postTicket = require("./TicketsRoutes/postTicket");
 const getUserTickets = require("./TicketsRoutes/getUserTickets");
-const postSearchUser = require("./EventsRoutes/postSearchUser");
+const postSearchUser = require("./EventsRoutes/getSearchUser");
 
 //
 const router = Router();
@@ -25,7 +25,7 @@ router.delete("/deleteEvent",deleteEvent)
 router.get("/getEvents/:eventId",getEvents)
 router.post("/postTicket",postTicket)
 router.get("/getUserTickets/:id",getUserTickets)
-router.post("/searchEvents",postSearchUser)
+router.get("/searchEvents/:text",postSearchUser)
 router.get("/", (req, res) => {
   const html = `
   <!DOCTYPE html>

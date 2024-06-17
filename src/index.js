@@ -22,10 +22,8 @@ server.use((req, res, next) => {
   next();
 });
 cron.schedule('50 14 * * *', () => {
-  console.log("Enviando recordatorio del evento...");
   sendEventReminder();
 });
-
 
 server.use("/", router);
 

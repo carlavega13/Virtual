@@ -1,5 +1,5 @@
 const htmlTicketPurchased = (info) => {
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
       <html lang="es">
       <head>
           <meta charset="UTF-8">
@@ -63,6 +63,5 @@ const htmlTicketPurchased = (info) => {
           </div>
       </body>
       </html>`;
-  };
-  module.exports = htmlTicketPurchased;
-  
+};
+module.exports = htmlTicketPurchased;

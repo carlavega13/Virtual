@@ -12,7 +12,7 @@ const postTicket = require("./TicketsRoutes/postTicket");
 const getUserTickets = require("./TicketsRoutes/getUserTickets");
 const postSearchUser = require("./EventsRoutes/getSearchUser");
 const getPastAndFutureEvents = require("./EventsRoutes/getPastAndFuturesEvents");
-
+const getSendReminder = require("./EventsRoutes/getSendReminder");
 //
 const router = Router();
 router.post("/postUser",postUser)
@@ -28,6 +28,7 @@ router.post("/postTicket",postTicket)
 router.get("/getUserTickets/:id",getUserTickets)
 router.get("/searchEvents/:text",postSearchUser)
 router.get("/getPastAndFutureEvents/:id",getPastAndFutureEvents)
+router.get("/sendEventReminder",getSendReminder)
 router.get("/", (req, res) => {
   const html = `
   <!DOCTYPE html>

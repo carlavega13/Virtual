@@ -3,8 +3,9 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const router = require("./Routes/index");
 const cors = require("cors");
-
+const sendEventReminder = require("./utils/sendEventReminder");
 const server = express();
+const cron = require('node-cron');
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
@@ -20,6 +21,11 @@ server.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
+cron.schedule('50 14 * * *', () => {
+  console.log("Enviando recordatorio del evento...");
+  sendEventReminder();
+});
+
 
 server.use("/", router);
 

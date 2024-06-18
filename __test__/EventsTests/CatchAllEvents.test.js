@@ -1,7 +1,12 @@
-const { Event } = require("../../src/db");
-const userAllEvents = require("../../src/Controllers/EventsControllers/userAllEvents"); 
+
+const { User, Event } = require("../../src/db");
+const userAllEvents = require("../../src/Controllers/EventsControllers/userAllEvents");
+
 
 jest.mock("../../src/db", () => ({
+  User: {
+    findOne: jest.fn(),
+  },
   Event: {
     findAll: jest.fn(),
   },
@@ -12,43 +17,41 @@ describe("userAllEvents", () => {
     jest.clearAllMocks();
   });
 
-  it("should return events for the given organizer id", async () => {
-    const organizerId = 1;
-    const eventsMock = [
-      { id: 1, title: "Event 1", organizer_id: organizerId },
-      { id: 2, title: "Event 2", organizer_id: organizerId },
-    ];
+  it("should throw an error if the user is not an admin", async () => {
+    User.findOne.mockResolvedValue(null);
 
-    Event.findAll.mockResolvedValue(eventsMock);
+    await expect(userAllEvents({ userId: 1 })).rejects.toThrow(
+      "You are not authorized to view all events"
+    );
 
-    const result = await userAllEvents({ eventId: organizerId });
-
-    expect(Event.findAll).toHaveBeenCalledWith({
-      where: { organizer_id: organizerId },
+    expect(User.findOne).toHaveBeenCalledWith({
+      where: { id: 1, rol: "admin" },
     });
-
-    expect(result).toEqual(eventsMock);
   });
 
-  it("should return an empty array if no events are found for the given organizer id", async () => {
-    const organizerId = 2;
+  it("should return all events if the user is an admin", async () => {
+    const mockAdmin = { id: 1, rol: "admin" };
+    const mockEvents = [{ id: 1, name: "Event 1" }, { id: 2, name: "Event 2" }];
 
-    Event.findAll.mockResolvedValue([]);
+    User.findOne.mockResolvedValue(mockAdmin);
+    Event.findAll.mockResolvedValue(mockEvents);
 
-    const result = await userAllEvents({ eventId: organizerId });
+    const result = await userAllEvents({ userId: 1 });
 
-    expect(Event.findAll).toHaveBeenCalledWith({
-      where: { organizer_id: organizerId },
+    expect(result).toEqual(mockEvents);
+    expect(User.findOne).toHaveBeenCalledWith({
+      where: { id: 1, rol: "admin" },
     });
-
-    expect(result).toEqual([]);
+    expect(Event.findAll).toHaveBeenCalled();
   });
 
-  it("should throw an error if Event.findAll fails", async () => {
-    const organizerId = 1;
+  it("should throw an error if there is an internal error", async () => {
+    const mockError = new Error("Internal error");
 
-    Event.findAll.mockRejectedValue(new Error("Database error"));
+    User.findOne.mockRejectedValue(mockError);
 
-    await expect(userAllEvents({ eventId: organizerId })).rejects.toThrow("Database error");
+    await expect(userAllEvents({ userId: 1 })).rejects.toThrow(
+      "Internal error"
+    );
   });
 });

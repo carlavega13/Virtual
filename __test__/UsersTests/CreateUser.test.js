@@ -30,7 +30,11 @@ describe("createUser", () => {
     validateDataUser.mockReturnValue(true);
     User.findOne.mockResolvedValue(null);
     bcrypt.hash.mockResolvedValue("hashedPassword");
-    User.create.mockResolvedValue(true);
+    User.create.mockResolvedValue({
+      password: null, // Actualizado para reflejar el nuevo comportamiento esperado
+      reset_password_expires: null,
+      reset_password_token: null
+    });
 
     const result = await createUser(user);
 
@@ -41,7 +45,11 @@ describe("createUser", () => {
       ...user,
       password: "hashedPassword",
     });
-    expect(result).toBe("User created successfully");
+    expect(result).toEqual({
+      password: null, // Actualizado para reflejar el nuevo comportamiento esperado
+      reset_password_expires: null,
+      reset_password_token: null
+    });
   });
 
   it("should throw an error if the user already exists", async () => {

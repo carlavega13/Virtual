@@ -17,31 +17,16 @@ const getSendReminder = require("./EventsRoutes/getSendReminder");
 const router = Router();
 router.post("/postUser",postUser)
 router.post("/login",postLogin)
-router.get("/requestPasswordRecovery/:email",postRequestPasswordReset)
-router.put("/editUser/:id",putEditUser)
-router.put("/changePassword",putUserPassword)
-router.post("/createEvent",postEvent)
-router.put("/editEvent",putEvent)
-router.delete("/deleteEvent",deleteEvent)
-router.get("/getEvents/:eventId",getEvents)
 router.post("/postTicket",postTicket)
+router.post("/createEvent",postEvent)
+router.get("/requestPasswordRecovery/:email",postRequestPasswordReset)
+router.get("/getEvents/:eventId",getEvents)
 router.get("/getUserTickets/:id",getUserTickets)
 router.get("/searchEvents/:text",postSearchUser)
 router.get("/getPastAndFutureEvents/:id",getPastAndFutureEvents)
 router.get("/sendEventReminder",getSendReminder)
-router.get("/", (req, res) => {
-  const html = `
-  <!DOCTYPE html>
-  <html>
-  <head>
-      <title>Soy un web service</title>
-  </head>
-  <body>
-      <h1>Soy un web service</h1>
-      <!-- El contenido de tu página web puede ir aquí -->
-  </body>
-  </html>s
-  `;
-  res.status(200).send(html);
-});
+router.put("/editUser/:id",putEditUser)
+router.put("/changePassword",putUserPassword)
+router.put("/editEvent",putEvent)
+router.delete("/deleteEvent",deleteEvent)
 module.exports = router;

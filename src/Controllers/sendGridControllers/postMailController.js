@@ -5,7 +5,6 @@ const postMailController = async (info) => {
     if(info.to.length===0){
       return
     }
-    console.log(info.to);
     const msg = {
       subject: info.subject,
       to: info.to,

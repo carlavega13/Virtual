@@ -4,6 +4,9 @@ const editUser = async (id, info) => {
   try {
     let { name, profilePicture, contactDetails } = info;
     const user = await User.findByPk(id);
+    if(!user){
+      throw Error("User not found")
+    }
     name=name.split(" ").map(e=>`${e[0].toUpperCase()}${e.slice(1)}`).join(" ")
     validateDataUser({ ...info, email: user.email });
     const response = await user.update({

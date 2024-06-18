@@ -1,13 +1,14 @@
 const { Event, Ticket } = require("../../db");
 const crypto = require("crypto");
-const postMailController=require("../sendGridControllers/postMailController")
-const htmlTicketPurchased=require("../sendGridControllers/htmlTicketPurchased")
+const postMailController = require("../sendGridControllers/postMailController");
+const htmlTicketPurchased = require("../sendGridControllers/htmlTicketPurchased");
 
 const purchaseTicket = async (info) => {
   try {
     const event = await Event.findOne({ where: { id: info.eventId } });
     if (event.available_tickets - info.numberOfTickets >= 0) {
       const promiseTickets = [];
+      const promiseEmails = [];
       for (let i = 0; i < info.numberOfTickets; i++) {
         let ticket_code = crypto.randomBytes(4).toString("hex");
         promiseTickets.push(
@@ -18,15 +19,25 @@ const purchaseTicket = async (info) => {
             event_id: event.id,
           })
         );
-        let text=htmlTicketPurchased({title:event.title,ticket_code:ticket_code,date:event.date})
-      promiseTickets.push( await postMailController({text,to:info.email,subject:"You have purchase a ticket!"}))
+        let text = htmlTicketPurchased({
+          title: event.title,
+          ticket_code: ticket_code,
+          date: event.date,
+        });
+        promiseEmails.push(
+          postMailController({
+            text,
+            to: info.email,
+            subject: "You have purchased a ticket!",
+          })
+        );
       }
-     let tickets = await Promise.all(promiseTickets);
+      const tickets = await Promise.all(promiseTickets);
+      await Promise.all(promiseEmails);
       await event.update({
         available_tickets: event.available_tickets - info.numberOfTickets,
       });
-
-      return tickets.filter(t=>!t[0]);
+      return tickets;
     } else {
       throw Error("There is not enougth tickets to purchase");
     }
@@ -34,4 +45,5 @@ const purchaseTicket = async (info) => {
     throw Error(error.message);
   }
 };
+
 module.exports = purchaseTicket;

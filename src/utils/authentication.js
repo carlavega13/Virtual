@@ -1,20 +1,16 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-//generador de token
-const tokenSign = async (object) => {//objeto a firmar
+const tokenSign = async (object) => {
   return jwt.sign(
     {
-      //payload con ID, nombre del usuario y preset para logica de la encuesta
-      object
+      object,
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: days ? `${days}d` : '7d', // dias de validez
-    },
+      expiresIn: days ? `${days}d` : "7d",
+    }
   );
 };
-
-//verificador de token
 const verifyToken = async (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
@@ -24,7 +20,6 @@ const verifyToken = async (token) => {
 };
 
 const decodeSign = async (token) => {
-  //devuelve decodeSign.header y decodeSign.payload
   return jwt.decode(token, { complete: true });
 };
 

@@ -30,8 +30,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { User, Ticket, Event } =
-  sequelize.models;
+const { User, Ticket, Event } = sequelize.models;
 
 User.hasMany(Event, { foreignKey: "organizer_id" });
 Event.belongsTo(User, { foreignKey: "organizer_id" });
